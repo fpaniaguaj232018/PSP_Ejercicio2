@@ -4,17 +4,19 @@ import javax.swing.JLabel;
 import javax.swing.JSlider;
 
 public class Cargador extends Thread {
+
     private JSlider slider;
     private JLabel label;
-    
-    public Cargador(JSlider _slider, JLabel _label){
-        this.slider=_slider;
+    private Cargador prioritario=null;
+
+    public Cargador(JSlider _slider, JLabel _label) {
+        this.slider = _slider;
         this.label = _label;
     }
-    
+
     @Override
     public void run() {
-        while(this.slider.getValue()<this.slider.getMaximum()){
+        while (this.slider.getValue() < this.slider.getMaximum()) {
             int valorActual = this.slider.getValue();
             valorActual++;
             this.slider.setValue(valorActual);
@@ -24,14 +26,18 @@ public class Cargador extends Thread {
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
             }
+            if (prioritario!=null) {
+                try {
+                    prioritario.join();
+                    prioritario=null;
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
+            }
         }
     }
     
-    public void esperaHilo(Cargador prioritario){
-        try {
-            prioritario.join();
-        } catch (InterruptedException ex) {
-            ex.printStackTrace();
-        }
+    public void setHiloAEsperar(Cargador _prioritario) {
+        this.prioritario = _prioritario;
     }
 }

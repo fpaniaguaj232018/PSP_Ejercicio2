@@ -158,7 +158,10 @@ public class JFEjercicio2 extends javax.swing.JFrame {
     }//GEN-LAST:event_jbStartActionPerformed
 
     private void jbSetPriorityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSetPriorityActionPerformed
-        //hilo1.esperaHilo(hilo2);
+        hilo1.setHiloAEsperar(hilo2);
+        hilo3.setHiloAEsperar(hilo2);
+        hilo4.setHiloAEsperar(hilo2);
+        hilo5.setHiloAEsperar(hilo2);
     }//GEN-LAST:event_jbSetPriorityActionPerformed
 
     public static void main(String args[]) {
